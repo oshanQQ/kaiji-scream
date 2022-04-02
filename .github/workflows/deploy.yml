@@ -1,0 +1,34 @@
+name: Functions Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  config:
+    name: Config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set firebase config
+        uses: w9jds/firebase-action@main
+        with:
+          args: functions:config:set line.channel_access_token="${{ secrets.CHANNEL_ACCESS_TOKEN }}" line.channel_secret="${{ secrets.CHANNEL_SECRET }}"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@main
+      - name: Install Dependencies
+        run: npm install
+      - name: Install Functions Dependencies
+        run: cd functions && npm install
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@main
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
