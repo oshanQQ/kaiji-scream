@@ -7,15 +7,15 @@ const config = {
   channelSecret: functions.config().line.channel_secret,
 };
 
-exports.kaijiScream = functions.https.onRequest(async (req, res) => {
-  const events = req.body.events;
+exports.kaijiScream = functions.https.onRequest(async (request, response) => {
+  const events = request.body.events;
   const client = new line.Client(config);
   const kaijilizedText = kaijilizer(events[0].message.text);
   const result = await client.replyMessage(events[0].replyToken, {
     type: "text",
     text: kaijilizedText,
   });
-  res.json(result);
+  response.json(result);
 });
 
 const kaijilizer = (text) => {
