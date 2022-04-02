@@ -1,33 +1,16 @@
-import * as functions from "firebase-functions";
-import * as line from "@line/bot-sdk";
-import express from "express";
+const functions = require("firebase-functions");
+const line = require("@line/bot-sdk");
+require("dotenv").config();
 
-const config = {
-  channelAccessToken: functions.config().linebot.token,
-  channelSecret: functions.config().linebot.secret,
-};
-
-const app = express();
-app.post("/webhooks", line.middleware(config), (request, response) => {
-  return Promise.all(request.body.events.map(handleEvent)).then((result) =>
-    response.json(result)
-  );
-});
-
-const client = new line.Client(config);
-async function handleEvent(event) {
-  if (event.type !== "message" || event.message.type !== "text") {
-    return Promise.resolve(null);
-  }
-
-  return replyWithText("メッセージを受け取りました！", event);
-}
-
-async function replyWithText(message, event) {
-  return client.replyMessage(event.replyToken, {
-    type: "text",
-    text: message,
+exports.helloWorld = functions.https.onRequest(async (req, res) => {
+  const events = req.body.events;
+  const client = new line.Client({
+    channelAccessToken: functions.config().line.channel_access_token,
+    channelSecret: functions.config().line.channel_secret,
   });
-}
-
-export const lineBot = functions.https.onRequest(app);
+  const result = await client.replyMessage(events[0].replyToken, {
+    type: "text",
+    text: "こんにちわーるど",
+  });
+  res.json(result);
+});
