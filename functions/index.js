@@ -9,16 +9,18 @@ const config = {
 
 const client = new line.Client(config);
 
-exports.kaijiScream = functions.https.onRequest(async (request, response) => {
-  const events = request.body.events;
-  const kaijilizedText = kaijilizer(events[0].message.text);
-  const echo = {
-    type: "text",
-    text: kaijilizedText,
-  };
-  const result = await client.replyMessage(events[0].replyToken, echo);
-  response.json(result);
-});
+exports.kaijiScream = functions
+  .region("asia-northeast2")
+  .https.onRequest(async (request, response) => {
+    const events = request.body.events;
+    const kaijilizedText = kaijilizer(events[0].message.text);
+    const echo = {
+      type: "text",
+      text: kaijilizedText,
+    };
+    const result = await client.replyMessage(events[0].replyToken, echo);
+    response.json(result);
+  });
 
 const kaijilizer = (text) => {
   return text.split("").join("゛") + "゛";
