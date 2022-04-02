@@ -8,9 +8,14 @@ exports.helloWorld = functions.https.onRequest(async (req, res) => {
     channelAccessToken: functions.config().line.channel_access_token,
     channelSecret: functions.config().line.channel_secret,
   });
+  const kaijilizedText = kaijilizer(events[0].message.text);
   const result = await client.replyMessage(events[0].replyToken, {
     type: "text",
-    text: "こんにちわーるど",
+    text: kaijilizedText,
   });
   res.json(result);
 });
+
+const kaijilizer = (text) => {
+  return text.split("").join("゛") + "゛";
+};
