@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set firebase config
-        uses: w9jds/firebase-action@main
+        uses: w9jds/firebase-action@master
         with:
           args: functions:config:set line.channel_access_token="${{ secrets.CHANNEL_ACCESS_TOKEN }}" line.channel_secret="${{ secrets.CHANNEL_SECRET }}"
         env:
@@ -22,13 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@main
+        uses: actions/checkout@master
       - name: Install Dependencies
         run: npm install
       - name: Install Functions Dependencies
         run: cd functions && npm install
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@main
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
         env:
