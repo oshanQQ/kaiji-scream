@@ -7,6 +7,8 @@ const config = {
   channelSecret: functions.config().line.channel_secret,
 };
 
+const client = new line.Client(config);
+
 exports.kaijiScream = functions.https.onRequest(async (request, response) => {
   const events = request.body.events;
   const client = new line.Client(config);
