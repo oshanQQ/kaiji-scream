@@ -7,16 +7,6 @@ on:
 
 jobs:
   config:
-    name: Config
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set firebase config
-        uses: w9jds/firebase-action@master
-        with:
-          args: functions:config:set line.channel_access_token="${{ secrets.CHANNEL_ACCESS_TOKEN }}" line.channel_secret="${{ secrets.CHANNEL_SECRET }}"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: "kaiji-scre"
 
   deploy:
     name: Deploy
@@ -37,3 +27,8 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: "kaiji-scre"
+      - name: Set firebase config
+        env:
+          CHANNEL_ACCESS_TOKEN: ${{ secrets.CHANNEL_ACCESS_TOKEN }}
+          CHANNEL_SECRET: ${{ secrets.CHANNEL_SECRET }}
+        run: functions:config:set line.channel_access_token="$CHANNEL_ACCESS_TOKEN" line.channel_secret="$CHANNELL_SECRET"
