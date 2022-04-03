@@ -26,7 +26,11 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: "kaiji-scre"
       - name: Set firebase config
+        uses: w9jds/firebase-action@master
+        with:
+          args: functions:config:set line.channel_access_token="$CHANNEL_ACCESS_TOKEN" line.channel_secret="$CHANNELL_SECRET"
         env:
           CHANNEL_ACCESS_TOKEN: ${{ secrets.CHANNEL_ACCESS_TOKEN }}
           CHANNEL_SECRET: ${{ secrets.CHANNEL_SECRET }}
-        run: firebase functions:config:set line.channel_access_token="$CHANNEL_ACCESS_TOKEN" line.channel_secret="$CHANNELL_SECRET"
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: "kaiji-scre"
