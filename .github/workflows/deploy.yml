@@ -7,11 +7,17 @@ on:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy functions
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: npm install
+      - name: Install Functions Dependencies
+        run: cd functions && npm install
       - name: Set Firebase config
         uses: w9jds/firebase-action@master
         with:
