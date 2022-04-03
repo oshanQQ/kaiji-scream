@@ -6,8 +6,6 @@ on:
       - develop
 
 jobs:
-  config:
-
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
