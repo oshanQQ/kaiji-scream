@@ -16,6 +16,7 @@ jobs:
           args: functions:config:set line.channel_access_token="${{ secrets.CHANNEL_ACCESS_TOKEN }}" line.channel_secret="${{ secrets.CHANNEL_SECRET }}"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: "kaiji-scre"
 
   deploy:
     name: Deploy
@@ -33,3 +34,4 @@ jobs:
           args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: "kaiji-scre"
