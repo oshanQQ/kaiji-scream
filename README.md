@@ -12,7 +12,7 @@ LINE のチャット上でメッセージを送信すると、カイジが叫び
 
 - ## Firebase Functions
 
-  デプロイ先を Firebase Functions にしています。
+  Firebase Functions 上で Node を動かしています。
 
 - ## LINE Messaging API
 
