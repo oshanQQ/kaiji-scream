@@ -29,4 +29,4 @@ jobs:
         env:
           CHANNEL_ACCESS_TOKEN: ${{ secrets.CHANNEL_ACCESS_TOKEN }}
           CHANNEL_SECRET: ${{ secrets.CHANNEL_SECRET }}
-        run: functions:config:set line.channel_access_token="$CHANNEL_ACCESS_TOKEN" line.channel_secret="$CHANNELL_SECRET"
+        run: firebase functions:config:set line.channel_access_token="$CHANNEL_ACCESS_TOKEN" line.channel_secret="$CHANNELL_SECRET"
